@@ -1,0 +1,164 @@
+package in.mindcraft.controller;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import in.mindcraft.dao.CartDao;
+import in.mindcraft.dao.CustomerDao;
+import in.mindcraft.dao.ProductDao;
+import in.mindcraft.pojo.Cart;
+import in.mindcraft.pojo.CartProduct;
+import in.mindcraft.pojo.Customer;
+import in.mindcraft.pojo.Product;
+
+@Controller
+public class CustomerController {
+
+//	CUSTOMER LOGIN SATHI KELA AHE
+	private CustomerDao customerdao = new CustomerDao();
+
+	@RequestMapping(value = "/customerLoginAction", method = RequestMethod.POST)
+	public String customerLogin(HttpServletRequest request, HttpServletResponse response, Model model) {
+		int customerId = Integer.parseInt(request.getParameter("username"));
+		String password = request.getParameter("password");
+
+		try {
+			if (customerdao.doesCustomerExist(customerId)) {
+				Customer customer = customerdao.getCustomer(customerId);
+
+				if (customer.getCpass().equals(password)) {
+					return "customerdash.jsp"; // Successful login jhala ki customerdash cha page yeil
+				} else {
+					model.addAttribute("errorMessage", "Incorrect password");
+				}
+			} else {
+				model.addAttribute("errorMessage", "Customer not found");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "An error occurred");
+		}
+		return "customerLogin.jsp"; // Unsuccessful login jhala ki toch page yeil login cha parat error msg sobat
+	}
+
+//	ADD PRODUCT PAGE VAR PRODUCT DISPLAY SATHI
+	private ProductDao productDao = new ProductDao();
+	private int customerId;
+
+	@RequestMapping(value = "/addProductcart", method = RequestMethod.GET)
+	public String customerDashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("hii");
+		try {
+			List<Product> avaProducts = productDao.getAvailableProducts();
+//			just to check product yety ki nahi
+//			for(Product product : avaProducts) {
+//				System.out.println("Product id"+product.getPid());
+//				System.out.println("Product name"+product.getPname());
+//				System.out.println("Product price"+product.getPrice());
+//				System.out.println();
+//			}
+			request.setAttribute("availableProducts", avaProducts);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "addProductCart.jsp";
+	}
+
+//	Product cart madhe add krnya sathi
+	private CartDao cartDao = new CartDao();
+
+	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
+	public String addToCart(HttpServletRequest request, Model model) {
+		int customerId = Integer.parseInt(request.getParameter("customerId"));
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+		try {
+			// doescustomer exist method banvla id match krnya sathi db madhun
+			if (customerdao.doesCustomerExist(customerId)) {
+				// product get krnya sathi productid ne method banvla
+				Product product = productDao.getProductById(productId);
+
+				if (product != null) {
+					// object banvla
+					Cart cartItem = new Cart();
+					cartItem.setCustomerId(customerId);
+					cartItem.setProductId(productId);
+					cartItem.setProductPrice(product.getPrice());
+					cartItem.setProductName(product.getPname());
+					cartItem.setQuantity(quantity);
+
+					// cart item add kela cart madhe
+					cartDao.addToCart(cartItem);
+
+					// Fetch the updated list of available products
+					List<Product> avaProducts = productDao.getAvailableProducts();
+
+					// Set the updated product list as an attribute in the request
+					request.setAttribute("availableProducts", avaProducts);
+
+					model.addAttribute("successMessage", "Product added to cart successfully!");
+				} else {
+					model.addAttribute("errorMessage", "Product not found");
+				}
+			} else {
+				model.addAttribute("errorMessage", "Customer not found");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "An error occurred");
+		}
+		return "addProductCart.jsp";
+	}
+
+	// Display the cart products based on customer ID
+	@RequestMapping(value = "/custidcart", method = RequestMethod.GET)
+	public String showCustIdCart() {
+		return "custIdCart.jsp";
+	}
+
+//	Display Cart products of particular customer id
+	private CustomerDao customerDao = new CustomerDao();
+	private CartDao cartDaos = new CartDao();
+
+	// Step 1: Handle the form submission from your "Enter Customer ID" page
+	@RequestMapping(value = "/cartprod", method = RequestMethod.POST)
+	public String showCartProducts(HttpServletRequest request, Model model) {
+		int customerId = Integer.parseInt(request.getParameter("customerId"));
+		try {
+			// Step 2: Check if the customer exists in the database
+			if (customerDao.doesCustomerExist(customerId)) {
+				// Step 3: Retrieve the customer's cart products from the database
+				List<CartProduct> cartProducts = cartDaos.getCartProductsByCustomerId(customerId);
+				model.addAttribute("cartProducts", cartProducts);
+				
+//				// Debugging: Log the contents of cartProducts
+//	            for (CartProduct cartProduct : cartProducts) {
+//	                System.out.println("Product ID: " + cartProduct.getProductId());
+//	                System.out.println("Product Name: " + cartProduct.getProductName());
+//	                System.out.println("Quantity: " + cartProduct.getQuantity());
+//	                System.out.println("Price: " + cartProduct.getProductPrice());
+//	            }
+				return "displayCartProducts.jsp"; // Redirect to the displaycartproducts.jsp page
+			} else {
+				model.addAttribute("errorMessage", "Customer not found");
+				return "customerLogin.jsp"; // Redirect to the customerLogin.jsp page with an error message
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "An error occurred");
+			return "customerLogin.jsp"; // Redirect to the customerLogin.jsp page with an error message
+		}
+	}
+
+}

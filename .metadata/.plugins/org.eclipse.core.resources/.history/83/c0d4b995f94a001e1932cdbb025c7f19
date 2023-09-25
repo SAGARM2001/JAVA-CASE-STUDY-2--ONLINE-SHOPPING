@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles for heading */
+        .dashboard-heading {
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        /* Custom styles for buttons */
+        .btn-3d {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .btn-3d:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center dashboard-heading">Welcome, <span style="color: #ff6f61;">Customer!</span></h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <form action="${pageContext.request.contextPath}/addProductcart" method="get">
+                                <button type="submit" class="btn btn-3d btn-lg btn-block mb-3">Add Product</button>
+                            </form>
+
+                            <form action="displaybal">
+                                <button type="submit" class="btn btn-3d btn-lg btn-block mb-3">Display Balance</button>
+                            </form>
+
+                            <form action="${pageContext.request.contextPath}/custidcart" method="get">
+                                <button type="submit" class="btn btn-3d btn-lg btn-block mb-3">Cart Products</button>
+                            </form>
+
+                            <form action="bill.jsp">
+                                <button type="submit" class="btn btn-3d btn-lg btn-block">Pay Bill</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

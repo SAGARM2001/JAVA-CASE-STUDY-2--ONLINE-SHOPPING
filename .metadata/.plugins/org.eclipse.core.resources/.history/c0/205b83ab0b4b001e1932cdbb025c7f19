@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wallet Balance</title>
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- You can add custom styles here if needed -->
+<style>
+/* Add your custom styles here if needed */
+.container {
+	max-width: 600px;
+}
+</style>
+</head>
+<body>
+	<div class="container mt-5">
+		<h2 class="text-center">Wallet Balance</h2>
+		<div class="text-center">
+			<p class="lead">
+				Your wallet balance is:
+				<%=request.getAttribute("balance")%></p>
+		</div>
+		<!-- Add a link or button to go back to the previous page if needed -->
+		<div class="text-center mt-3">
+			<a href="customerLogin.jsp" class="btn btn-primary">Back to Login</a>
+		</div>
+	</div>
+
+	<!-- Include Bootstrap JS and jQuery if needed -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

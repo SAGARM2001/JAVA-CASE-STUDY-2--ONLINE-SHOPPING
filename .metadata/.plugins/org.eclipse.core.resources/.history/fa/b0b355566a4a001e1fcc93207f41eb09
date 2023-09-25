@@ -1,0 +1,33 @@
+package in.mindcraft.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import in.mindcraft.utils.DBUtils; // Import your DBUtils class for database connection
+
+public class CartDao {
+
+	private Connection connection;
+
+	public CartDao() throws SQLException {
+		connection = DBUtils.openConnection(); // Initialize the database connection
+	}
+
+	// Method to add a cart item to the cart table
+	public void addToCart(Cart cartItem) throws SQLException {
+		String insertQuery = "INSERT INTO cart (customer_id, product_id, product_name, product_price, quantity) VALUES (?, ?, ?, ?, ?)";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+			preparedStatement.setInt(1, cartItem.getCustomerId());
+			preparedStatement.setInt(2, cartItem.getProductId());
+			preparedStatement.setString(3, cartItem.getProductName());
+			preparedStatement.setDouble(4, cartItem.getProductPrice());
+			preparedStatement.setInt(5, cartItem.getQuantity());
+			preparedStatement.executeUpdate();
+		}
+	}
+
+	// Close the database connection
+	public void closeConnection() throws SQLException {
+		DBUtils.closeConnection();
+	}
+}

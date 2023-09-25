@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center">Welcome, <span style="color: #ff6f61;">Customer!</span></h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <form action="${pageContext.request.contextPath}/addProductcart" method="get">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Add Product in Cart</button>
+                            </form>
+
+                            <form action="displaybal">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Display Account Balance</button>
+                            </form>
+
+                            <form action="${pageContext.request.contextPath}/custidcart" method="get">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Display Cart Products</button>
+                            </form>
+
+                            <form action="bill.jsp">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Display & Pay Bill</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

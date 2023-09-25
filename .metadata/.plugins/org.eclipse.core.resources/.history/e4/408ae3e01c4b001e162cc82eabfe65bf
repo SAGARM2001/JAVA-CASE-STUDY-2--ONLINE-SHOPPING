@@ -1,0 +1,97 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Delete Customer Account</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	margin: 20px 0;
+}
+
+form {
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+input[type="submit"] {
+	background-color: #dc3545;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #c82333;
+}
+
+.success-message {
+	color: #28a745;
+	text-align: center;
+}
+
+.btn-custom {
+	padding: 10px 20px;
+	font-size: 16px;
+	background-color: #ff6f61;
+	color: #fff;
+	border: none;
+	width: 480px;
+	border-radius: 5px;
+	margin: 10px;
+	cursor: pointer;
+	transition: transform 0.2s ease-in-out;
+}
+
+.btn-custom:hover {
+	background-color: #e54844;
+	transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+	<h1>
+		Delete <span style="color: #ff6f61;">Customer</span> Account
+	</h1>
+	<form action="deletecustomer">
+		<div class="form-group">
+			<label for="customerId">Customer ID:</label> <input type="text"
+				class="form-control" name="custId" placeholder="Enter Customer ID">
+		</div>
+		<button type="submit" class="btn btn-custom">Delete Customer
+			Account</button>
+		<p class="success-message">${successMessage}</p>
+	</form>
+
+</body>
+</html>

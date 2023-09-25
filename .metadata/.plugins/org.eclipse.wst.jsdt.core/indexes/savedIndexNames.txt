@@ -1,0 +1,4 @@
+INDEX VERSION 1.4+D:\SAGAR (ONLINE SHOPPING CASE STUDY)\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+896134721.index
+2707963807.index
+3639423775.index

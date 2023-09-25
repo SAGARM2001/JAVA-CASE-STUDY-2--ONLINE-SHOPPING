@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Delete Customer Account</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	margin: 20px 0;
+}
+
+form {
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+input {
+	width: 200px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+input[type="submit"] {
+	background-color: #dc3545;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #c82333;
+}
+</style>
+</head>
+<body>
+	<h1>Delete <span style="color: #ff6f61;">Customer</span> Account</h1>
+	<form action="deletecustomer">
+		<label for="customerId">Customer ID:</label> <input type="text"
+			name="custId" placeholder="Enter Customer ID">
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="submit"
+			value="Delete Customer Account">
+		<p class="success-message">${successMessage}</p>
+	</form>
+
+</body>
+</html>
